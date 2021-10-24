@@ -1,0 +1,45 @@
+{% extends 'layout/dashboard.html' %}
+{% block dashboard_content %}
+<div id="dashboard-page">
+
+    <div class="col-11 mx-auto">
+        <div class="p-4">
+            <h1 class="welcome-title">Show All Patient</h1>
+        </div>
+        <table class="hnazmul-table">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>Age</th>
+                    <th>Specialize</th>
+                    <th>address</th>
+                    <th>Mobile</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                    <td>{{doctor.fullname}}</td>
+                    <td>{{doctor.age}}</td>
+                    <td>{{doctor.specialize}}</td>
+                    <td>{{doctor.address}}</td>
+                    <td>{{doctor.mobile}}</td>
+                    <td><a href="{% url 'delDoctor' doctor.id %}" class="btn sm btn-danger">Delete</a> </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'addDoctor' %}"
+                class="primary-dark-bg text-decoration-none btn fs-4 text-light px-2 px-md-5 rounded-pill">Add
+                Doctor</a>
+
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock dashboard_content %}

@@ -1,0 +1,46 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<div id="dashboard">
+    <aside class="sitebar">
+        <div class="all-element w-100 mx-auto">
+            <h3>Quick Action</h3>
+            <div class="quick-action-cards">
+                <a href="{% url 'addAppointment' %}"
+                    class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                    <img src="/static/images/icon/add-appointment.png" alt="add add-appointment" class="icon">
+                    <p class="text-center">Add Appointment</p>
+                </a>
+                <a href="{% url 'allAppointment' %}"
+                    class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                    <img src="/static/images/icon/sell-appointment.png" alt="add add-appointment" class="icon">
+                    <p class="text-center">See All Appointment</p>
+                </a>
+                <a href="{% url 'addDoctor' %}" class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                    <img src="/static/images/icon/add-doctor.png" alt="add add-appointment" class="icon">
+                    <p class="text-center">Add a Doctor</p>
+                </a>
+                <a href="{% url 'allDoctor' %}" class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                    <img src="/static/images/icon/add-doctor-1.png" alt="add add-appointment" class="icon">
+                    <p class="text-center">See All Doctor</p>
+                </a>
+                <a href="{% url 'allPatient' %}" class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                    <img src="/static/images/icon/add-patient.png" alt="add add-appointment" class="icon">
+                    <p class="text-center">Add a Patient</p>
+                </a>
+                <a href="{% url 'allPatient' %}" class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                    <img src="/static/images/icon/see-patient.png" alt="add add-appointment" class="icon">
+                    <p class="text-center">See All Patient</p>
+                </a>
+            </div>
+            <a href="{% url 'logout' %}" class="primary-dark-bg  btn mt-4 w-100 text-light px-2 px-md-5">Logout</a>
+
+        </div>
+    </aside>
+    <main class="main">
+        <div class="cs-container">
+            {% block dashboard_content %}{% endblock dashboard_content %}
+        </div>
+    </main>
+</div>
+
+{% endblock body %}

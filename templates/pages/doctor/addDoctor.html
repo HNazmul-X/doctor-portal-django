@@ -1,0 +1,50 @@
+{% extends 'layout/dashboard.html' %}
+{% block dashboard_content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div id="dashboard-page">
+
+        <div class="col-11 col-lg-9 mx-auto">
+
+            <div class="add-form">
+                <div class="pt-2 pb-4">
+                    <h1 class="welcome-title text-center">Add a Pataient</h1>
+                </div>
+                <div class="input-cm mb-3 mb-lg-4">
+                    {{form.fullname}}
+                </div>
+
+                <div class="row mb-3 mb-lg-4">
+                    <div class="col-md-6">
+                        <div class="input-cm">
+                            {{form.specialize}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-cm">
+                            {{form.age}}
+                        </div>
+                    </div>
+                </div>
+                <div class="input-cm mb-3 mb-lg-4">
+                    {{form.address}}
+                </div>
+                <div class="row mb-3 mb-lg-4">
+                    
+                    <div class="col-md-12">
+                        <div class="input-cm">
+                            {{form.mobile}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="primary-dark-bg btn fs-4 text-light px-2 px-md-5 rounded-pill">Add Doctor</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+{% endblock dashboard_content %}
