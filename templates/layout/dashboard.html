@@ -1,38 +1,55 @@
 {% extends 'layout/base.html' %}
+{% block style_tag %}
+{% block dashboard_style_tag %}{% endblock dashboard_style_tag %}
+{% endblock style_tag %}
 {% block body %}
 <div id="dashboard">
     <aside class="sitebar">
         <div class="all-element w-100 mx-auto">
             <h3>Quick Action</h3>
-            <div class="quick-action-cards">
+            <div class="quick-action-cards justify-content-center">
+                {% if user.is_admin == False %}
                 <a href="{% url 'addAppointment' %}"
                     class="quick-action-card d-flex justify-content-center align-items-center flex-column">
                     <img src="/static/images/icon/add-appointment.png" alt="add add-appointment" class="icon">
                     <p class="text-center">Add Appointment</p>
                 </a>
+                {% endif %}
                 <a href="{% url 'allAppointment' %}"
                     class="quick-action-card d-flex justify-content-center align-items-center flex-column">
                     <img src="/static/images/icon/sell-appointment.png" alt="add add-appointment" class="icon">
                     <p class="text-center">See All Appointment</p>
                 </a>
-                <a href="{% url 'addDoctor' %}" class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                {% if user.is_admin %}
+                <a href="{% url 'addDoctor' %}"
+                    class="quick-action-card d-flex justify-content-center align-items-center flex-column">
                     <img src="/static/images/icon/add-doctor.png" alt="add add-appointment" class="icon">
                     <p class="text-center">Add a Doctor</p>
                 </a>
-                <a href="{% url 'allDoctor' %}" class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                {% endif %}
+                <a href="{% url 'allDoctor' %}"
+                    class="quick-action-card d-flex justify-content-center align-items-center flex-column">
                     <img src="/static/images/icon/add-doctor-1.png" alt="add add-appointment" class="icon">
                     <p class="text-center">See All Doctor</p>
                 </a>
-                <a href="{% url 'allPatient' %}" class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                {% if user.is_admin == False %}
+                <a href="{% url 'addPatient' %}"
+                    class="quick-action-card d-flex justify-content-center align-items-center flex-column">
                     <img src="/static/images/icon/add-patient.png" alt="add add-appointment" class="icon">
                     <p class="text-center">Add a Patient</p>
                 </a>
-                <a href="{% url 'allPatient' %}" class="quick-action-card d-flex justify-content-center align-items-center flex-column">
+                {% endif %}
+                <a href="{% url 'allPatient' %}"
+                    class="quick-action-card d-flex justify-content-center align-items-center flex-column">
                     <img src="/static/images/icon/see-patient.png" alt="add add-appointment" class="icon">
                     <p class="text-center">See All Patient</p>
                 </a>
             </div>
-            <a href="{% url 'logout' %}" class="primary-dark-bg  btn mt-4 w-100 text-light px-2 px-md-5">Logout</a>
+            <div class="d-flex mt-4">
+                <div class="col-6 pe-1"><a href="{% url 'dashboard' %}"class="primary-dark-bg  btn  w-100 text-light px-2 ">Dashboard</a></div>
+                <div class="col-6"> <a href="{% url 'logout' %}" class="primary-dark-bg  btn  w-100 text-light ">Logout</a>
+                </div>
+            </div>
 
         </div>
     </aside>
@@ -44,3 +61,6 @@
 </div>
 
 {% endblock body %}
+{% block script %}
+{% block dashboard_script %}{% endblock dashboard_script %}
+{% endblock script %}

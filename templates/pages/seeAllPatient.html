@@ -15,7 +15,7 @@
                         <th>address</th>
                         <th>Fee</th>
                         <th>Mobile</th>
-                        <th>Action</th>
+                        {% if user.is_admin == False %}<th>Action</th>{% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -27,16 +27,20 @@
                             <td>{{patient.address}}</td>
                             <td>{{patient.feeStatus}}</td>
                             <td>{{patient.mobile}}</td>
-                            <td><a href="{% url 'delPatient' patient.id %}" class="btn sm btn-danger">Delete</a> </td>
+                            {% if user.is_admin == False %}<td><a href="{% url 'delPatient' patient.id %}" class="btn sm btn-danger">Delete</a> </td>{% endif %}
                         </tr>
                     
                     {% endfor %}
                 </tbody>
             </table>
 
-            <div class="text-center mt-4">
-                <a href="{% url 'addPatient' %}" class="primary-dark-bg text-decoration-none btn fs-4 text-light px-2 px-md-5 rounded-pill">Add Patient</a>
-            </div>
+            {% if user.is_admin == False %}
+                <div class="text-center mt-4">
+                    <a href="{% url 'addPatient' %}"
+                        class="primary-dark-bg text-decoration-none btn fs-4 text-light px-2 px-md-5 rounded-pill">Add
+                        Patient</a>
+                </div>
+            {% endif %}
         </div>
 
     </div>

@@ -15,6 +15,7 @@ urlpatterns = [
     #appointment Route
     path("addAppointment/",views.addAppointment,name="addAppointment"),
     path("allAppointment/",views.allAppointment,name="allAppointment"),
+    path("update-doctor/<slug:doctorId>",views.updateDoctor,name="updateDoctor"),
     path("delAppointment/<slug:appointmentID>",views.delAppointment,name="delAppointment"),
 
     path("login/", views.login_view, name="login"),

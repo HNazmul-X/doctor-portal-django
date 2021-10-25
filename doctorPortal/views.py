@@ -1,8 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render,HttpResponse
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from doctorPortal.form import addAppointmentForm, addDoctorForm, addPatientForm
-from doctorPortal.models import DoctorsModel, PateintModel
+from doctorPortal.models import AppointmentModel, DoctorsModel, PateintModel
 
 
 
@@ -34,7 +34,10 @@ def logout_view(req):
 
 @login_required(login_url="/login")
 def dashboard(req):
-    return render(req, "pages/dashboard.html")
+    totalPatient = PateintModel.objects.count()
+    totalDoctor = DoctorsModel.objects.count()
+    totalAppointment = AppointmentModel.objects.count()
+    return render(req, "pages/dashboard.html",{"totalAppointment":totalAppointment,"totalDoctor":totalDoctor,"totalPatient":totalPatient})
 
 
 ###############################################
@@ -42,7 +45,6 @@ def dashboard(req):
 ###############################################
 @login_required(login_url="/login")
 def seeAllPatient(req):
-    print(req.user)
     if req.user.is_authenticated:
         allpatients = PateintModel.objects.all()
         allpatients = reversed(allpatients)
@@ -50,24 +52,28 @@ def seeAllPatient(req):
     else:
         return redirect("/login")
 
-
 @login_required(login_url="/login")
 def addPatient(req):
     form = addPatientForm(req.POST or None)
-    print(req.POST)
-    if req.method == "POST":
-        if form.is_valid():
-            form.save()
-            return redirect("addPatient")
+    if req.user.is_admin:
+        return redirect(seeAllPatient)
+    else:
+        if req.method == "POST":
+            if form.is_valid():
+                form.save()
+                return redirect("allPatient")
 
-    return render(req, "pages/addPatient.html", {"form": form})
+        return render(req, "pages/addPatient.html", {"form": form})
 
 
 @login_required(login_url="/login")
 def delPatient(req,patientId):
-    patient = PateintModel.objects.get(pk=patientId)
-    patient.delete()
-    return redirect("allPatient")
+    if req.user.is_admin:
+        return redirect(seeAllPatient)
+    else:
+        patient = PateintModel.objects.get(pk=patientId)
+        patient.delete()
+        return redirect("allPatient")
 
 
 ###############################################
@@ -75,12 +81,15 @@ def delPatient(req,patientId):
 ###############################################
 @login_required(login_url="/login")
 def addDoctor(req):
-    form = addDoctorForm(req.POST or None)
-    if req.method=="POST":
-        if form.is_valid():
-            form.save()
-            return redirect("allDoctor")
-    return render(req,"pages/doctor/addDoctor.html",{"form":form})
+    if req.user.is_admin:
+        form = addDoctorForm(req.POST or None)
+        if req.method=="POST":
+            if form.is_valid():
+                form.save()
+                return redirect("allDoctor")
+        return render(req,"pages/doctor/addDoctor.html",{"form":form})
+    else:
+        return redirect("/")
 
 
 @login_required(login_url="/login")
@@ -89,11 +98,31 @@ def allDoctor(req):
     return render(req, "pages/doctor/allDoctor.html",{"doctors":doctors})
 
 
+
+@login_required(login_url="/login")
+def updateDoctor(req,doctorId):
+    if req.user.is_admin:
+        doctor = DoctorsModel.objects.get(pk=doctorId)
+        form = addDoctorForm(req.POST or None, instance=doctor)
+        if not req.user.is_admin:
+            return redirect("allDoctor")
+        if req.method == "POST":
+            if form.is_valid():
+                form.save()
+                return redirect(allDoctor)
+        return render(req, "pages/doctor/updateDoctor.html", {"form": form})
+    else:
+        return redirect("allDoctor")
+
+
 @login_required(login_url="/login")
 def delDoctor(req,doctorId):
-    doctor = DoctorsModel.objects.get(pk=doctorId)
-    doctor.delete()
-    return redirect("allDoctor")
+    if req.user.is_admin:
+        doctor = DoctorsModel.objects.get(pk=doctorId)
+        doctor.delete()
+        return redirect("allDoctor")
+    else:
+        return redirect("allDoctor")
 
 
 ###############################################
@@ -102,21 +131,25 @@ def delDoctor(req,doctorId):
 @login_required(login_url="/login")
 def addAppointment(req):
     form = addAppointmentForm(req.POST or None)
-    print(form)
+    if req.user.is_admin:
+        return redirect("/")
     if req.method =="POST":
         if form.is_valid():
             form.save()
             return redirect(allAppointment)
-    else:
-        return render(req,"pages/appointment/addAppointment.html",{"form":form})
+    return render(req,"pages/appointment/addAppointment.html",{"form":form})
 
 @login_required(login_url="/login")
 def allAppointment(req):
-    pass
+    appointments = AppointmentModel.objects.all()
+    return render(req,"pages/appointment/allAppointment.html",{"appointments":appointments})
 
 
 @login_required(login_url="/login")
-def delAppointment(req):
-    pass
-
+def delAppointment(req,appointmentID):
+    if req.user.is_admin:
+        return redirect("allAppointment")
+    appointment = AppointmentModel.objects.get(pk=appointmentID)
+    appointment.delete()
+    return redirect("allAppointment")
 

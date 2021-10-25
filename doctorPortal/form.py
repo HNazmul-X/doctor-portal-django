@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.widgets import DateInput
+from django.forms.widgets import DateInput, DateTimeInput
 from . import models
 
 class addPatientForm(forms.ModelForm):
@@ -26,14 +26,12 @@ class addDoctorForm(forms.ModelForm):
         self.fields["specialize"].widget.attrs.update({"placeholder":"Enter Specialize"})
         self.fields["mobile"].widget.attrs.update({"placeholder":"Enter Mobile Number"})
         self.fields["address"].widget.attrs.update({"placeholder":"Enter Address"})
+        self.fields["salary"].widget.attrs.update({"placeholder":"Enter Salary"})
 
 class addAppointmentForm(forms.ModelForm):
     class Meta:
         model = models.AppointmentModel
         fields = "__all__"
-        widgets = {
-            "time":DateInput(attrs={"type":"date"})
-        }
     
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)

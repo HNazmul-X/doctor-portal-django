@@ -4,7 +4,7 @@
 
     <div class="col-11 mx-auto">
         <div class="p-4">
-            <h1 class="welcome-title">Show All Patient</h1>
+            <h1 class="welcome-title d-inline-flex align-items-center"> <span class="iconify-inline me-2 display-3 " data-icon="healthicons:doctor"></span><span style="line-height:0px">Show All Doctor</span></h1>
         </div>
         <table class="hnazmul-table">
             <thead>
@@ -14,7 +14,8 @@
                     <th>Specialize</th>
                     <th>address</th>
                     <th>Mobile</th>
-                    <th>Action</th>
+                    <th>Salary</th>
+                    {% if user.is_admin %}<th>Action</th>{% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -25,17 +26,28 @@
                     <td>{{doctor.specialize}}</td>
                     <td>{{doctor.address}}</td>
                     <td>{{doctor.mobile}}</td>
-                    <td><a href="{% url 'delDoctor' doctor.id %}" class="btn sm btn-danger">Delete</a> </td>
+                    <td>{{doctor.salary}}</td>
+                    {% if user.is_admin %}
+                    <td>
+                        <a href="{% url 'updateDoctor' doctor.id %}" class="btn sm btn-danger">
+                            <span class="iconify-inline" data-icon="dashicons:edit-large"></span></a>
+                        <a href="{% url 'delDoctor' doctor.id %}" class="btn sm btn-danger">
+                            <span class="iconify-inline" data-icon="bi:trash-fill"></span></a>
+                    </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
 
-        <div class="text-center mt-4">
-            <a href="{% url 'addDoctor' %}"
-                class="primary-dark-bg text-decoration-none btn fs-4 text-light px-2 px-md-5 rounded-pill">Add  Doctor</a>
+        {% if user.is_admin %}
+            <div class="text-center mt-4">
+                <a href="{% url 'addDoctor' %}"
+                    class="primary-dark-bg text-decoration-none btn fs-4 text-light px-2 px-md-5 rounded-pill">Add
+                    Doctor</a>
 
-        </div>
+            </div>
+        {% endif %}
     </div>
 
 </div>
