@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ouam*k$bvevo2(6@ra2w!3s_p%j&7-^a-76r0_kn@wc#)i8v*)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://doctor-portal-hnazmul.herokuapp.com/","localhost","127.0.0.1"]
 
 
 # Application definition
@@ -120,6 +120,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR,"staticfiles")]
+STATIC_ROOT = os.path.join(BASE_DIR,"static")
+
+
+
+
+MEDIA_URL = '/upload/'
+MEDIA_ROOT = os.path.join(BASE_DIR,"upload")
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -128,4 +139,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Manually Added
 AUTH_USER_MODEL = "doctorPortal.UserModel"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]

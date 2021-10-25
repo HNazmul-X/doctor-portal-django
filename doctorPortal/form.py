@@ -14,6 +14,7 @@ class addPatientForm(forms.ModelForm):
         self.fields["symptoms"].widget.attrs.update({"placeholder":"Enter Reason"})
         self.fields["mobile"].widget.attrs.update({"placeholder":"Enter Mobile Number"})
         self.fields["address"].widget.attrs.update({"placeholder":"Enter Address"})
+        self.fields["feeStatus"].empty_label = "Select Fee Status"
 
 class addDoctorForm(forms.ModelForm):
     class Meta:
