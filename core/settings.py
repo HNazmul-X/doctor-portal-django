@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ouam*k$bvevo2(6@ra2w!3s_p%j&7-^a-76r0_kn@wc#)i8v*)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://doctor-portal-hnazmul.herokuapp.com/","localhost","127.0.0.1"]
+ALLOWED_HOSTS = ["https://doctor-portal-hnazmul.herokuapp.com/", "https://doctor-portal-ready-hnazmul.herokuapp.com/","localhost","127.0.0.1"]
 
 
 # Application definition
