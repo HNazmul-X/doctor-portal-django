@@ -1,0 +1,54 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block dashboard_content %}
+<div id="dashboard-page">
+
+    <div class="col-11 mx-auto">
+        <div class="p-4">
+            
+            <h1 class="welcome-title d-inline-block"><span class="iconify-inline me-2" data-icon="whh:appointment"></span> All Appointment</h1>
+        </div>
+        <table class="hnazmul-table">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>Age</th>
+                    <th>time</th>
+                    <th>Mobile</th>
+                    <th>Disease</th>
+                    {% if user.is_admin == False %}<th>Action</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td class="small">{{appointment.doctor}}</td>
+                    <td class="small">{{appointment.pateint}}</td>
+                    <td class="small">{{appointment.time}}</td>
+                    <td>
+                        <p class="small mb-0"><span class="me-2">doctor:</span>{{appointment.doctor.mobile}}</p>
+                        <p class="small mb-0"><span class="me-2">patient:</span>{{appointment.pateint.mobile}}</p>
+                    </td>
+                    <td>{{appointment.subject}}</td>
+                    {% if user.is_admin == False %}<td><a href="{% url 'delAppointment' appointment.id %}"
+                            class="btn-sm btn btn-danger">Delete</a>
+                    </td>{% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-center mt-4">
+            {% if user.is_admin == False %}
+            <a href="{% url 'addAppointment' %}"
+                class="primary-dark-bg text-decoration-none btn fs-4 text-light px-2 px-md-5 rounded-pill">Add An
+                appointment</a>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock dashboard_content %}

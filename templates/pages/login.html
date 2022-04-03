@@ -1,0 +1,38 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<div class="header">
+	<div class="container ">
+		<div class="row align-items-center">
+			<div class="col-md-7 ">
+				<h1 class="display-3 fw-bold primary-dark-text">Hospital’s Doctor and Patient Management System</h1>
+				<button class="primary-dark-bg btn mt-2 mt-md-4 fs-3 text-light px-2 px-md-5">Visit
+					Homepage</button>
+			</div>
+			<div class="col-md-5">
+				<div class="px-5 py-2 mb-2 bg-white shadow-lg rounded-3">
+					<code class="">Doctor: <span class="fw-bold">admin@admin.com</span></code><br>
+					<code class="">Doctor: <span class="fw-bold">res@res.com</span></code><br>
+					<code class="">Pass for both: <span class="fw-bold">admin</span></code>
+				</div>
+				<form action="" method="post">
+					{% csrf_token %}
+					<div class="login-form">
+						<h1 class="display-5 text-center fw-bold primary-dark-text mb-4">Login</h1>
+
+						<div class="login-form-input">
+							<input type="email" name="email" id="email" required="true">
+						</div>
+						<div class="login-form-input">
+							<input type="password" name="password" id="password">
+						</div>
+						<div class="text-center">
+							<button class="primary-dark-bg btn fs-5 text-light px-2 px-md-5">Login</button>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}

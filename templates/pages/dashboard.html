@@ -1,0 +1,35 @@
+{% extends 'layout/dashboard.html' %}
+{% block dashboard_content %}
+<div id="dashboard-page">
+    <div class="w-100">
+        <div class="p-4">
+            <h1 class="welcome-title">Hey <span class="text-secondary">{{user.fullname|upper}}</span>, Welcome to dashboard </h1>
+        </div>
+
+        <div class="information-cards row row-cols-3 ">
+
+            <div class="information-card">
+                <div class="content">
+                    <h3>Total Patient</h3>
+                    <h1>{{totalPatient}}</h1>
+                </div>
+            </div>
+            <div class="information-card">
+                <div class="content">
+                    <h3>Total Appointment</h3>
+                    <h1>{{totalAppointment}}</h1>
+                </div>
+            </div>
+            <div class="information-card">
+                <div class="content">
+                    <h3>Total Doctor</h3>
+                    <h1>{{totalDoctor}} </h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+{% endblock dashboard_content %}
